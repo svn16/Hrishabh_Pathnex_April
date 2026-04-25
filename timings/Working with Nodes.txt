@@ -1,0 +1,46 @@
+Working with Nodes
+-----------------------
+Step 1: Verify the status of a node
+1.1
+List all the running nodes in a cluster using the following command:
+kubectl get nodes
+1.2
+Verify the status of the worker node you wish to inspect by running the following command:
+kubectl describe node worker-node-1.example.com
+Objective: To manage nodes in a Kubernetes cluster by verifying status, deleting and registering nodes via config files, and identifying node conditions, capacity, and resources for optimal cluster performance
+Tools required: kubeadm, kubectl, kubelet, and containerd
+Prerequisites: A Kubernetes cluster (refer to Demo 01 from Lesson 01 for setting up a cluster)
+Step 2: Delete a worker node
+2.1
+Use the following command to delete a worker node:
+kubectl delete node worker-node-1.example.com
+2.2
+Fetch the list of nodes in the cluster using the following command:
+kubectl get nodes
+Step 3: Register a worker node using a config file
+3.1
+Create a file named nodereg.json
+vi nodereg.json
+3.2
+Input the following JSON code inside the nodereg.json file:
+{
+"kind": "Node",
+"apiVersion": "v1",
+"metadata": {
+"name": "worker-node-1.example.com",
+"labels": {
+"name": "firstnode"
+}
+}
+}
+3.3
+Run the following command to register the node using the nodereg.json file:
+kubectl create -f ./nodereg.json
+3.4
+Execute the following command to verify the created node:
+kubectl get nodes
+Step 4: Identify the node conditions, capacity, and allocatable resources
+4.1
+Run the following command to view the node conditions, status, capacity, and allocatable size of each resource:
+kubectl describe node worker-node-1.example.com
+By following these steps, you have successfully verified node status, deleted a worker node, and registered a new worker node in the Kubernetes cluster, demonstrating effective node management.

@@ -1,0 +1,41 @@
+Managing and Administering a Kubernetes Cluster
+
+
+Step 1: Verify the certificates of the cluster.
+
+
+1.1
+Run the following command to check the expiration date of the certificate as a regular user:
+sudo kubeadm certs check-expiration
+
+
+1.3
+Run the following command to view complete cluster information on the master node:
+kubectl cluster-info dump
+
+Step 2: Create a namespace
+2.1
+Run the following command to create a namespace:
+kubectl create namespace firstnamespace
+
+
+2.2 Confirm the creation of the new namespace with the following 
+command: kubectl get namespaces
+Step 3: Access clusters using the Kubernetes API
+3.1
+Run the following command to view the cluster configuration:
+kubectl config view
+
+
+
+
+3.2 Run the following command to view the current cluster: kubectl 
+config current-context
+
+
+3.3
+Execute and copy the 127.0.0.1:8080 port to identify the API server, as shown in the screenshot below:
+kubectl proxy --port=8080
+
+
+By following these steps, you have successfully verified cluster certifica.
