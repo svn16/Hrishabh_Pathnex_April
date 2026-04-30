@@ -1,0 +1,60 @@
+                                                      Sharing1.1
+Open the YAML configuration file with the following  Data Between Containers in the Same Pod- command:    -    nano emptydir.yaml.apiVersion: v1                 # Kubernetes API version (core API)
+kind: Pod                     # Type of resource → Pod (smallest deployable unit)
+
+metadata:
+  name: container-share-volume   # Unique name of the Pod
+
+spec:                           # Desired configuration of the Pod
+
+  containers:                   # List of containers inside the Pod
+
+  - name: container1            # First container name
+    image: centos:7             # Base image used (Linux container)
+
+    command:                    # Override default container command
+    - "/bin/bash"               # Start bash shell (NOTE: must use /bin/bash)
+    - "-c"                      # Execute command string
+    - "sleep 10000"             # Keep container running (for testing)
+
+    volumeMounts:               # Mount shared volume inside container
+    - name: container-volume    # Reference to volume defined below
+      mountPath: "/tmp/xchange" # Path inside container1
+
+  - name: container2            # Second container name
+    image: centos:7             # Same base image
+
+    command:
+    - "/bin/bash"
+    - "-c"
+    - "sleep 10000"             # Keep container alive
+
+    volumeMounts:
+    - name: container-volume    # Same shared volume
+      mountPath: "/tmp/data"    # Different mount path inside container2
+
+  volumes:                      # Define shared storage at Pod level
+  - name: container-volume      # Volume name (used above)
+    emptyDir: {}                # Temporary volume (lives as long as Pod runs).
+
+
+
+  kubectl apply -f emptydir.yaml.
+
+kubectl describe pod container-share-volume.
+kubectl exec -it container-share-volume -c container1 -- bash.
+cd /tmp/xchange
+touch container1-file{1..10}.txt
+kubectl exec -it container-share-volume -c container2 -- /bin/bash
+cd /tmp/xchange
+lscd /tmp/data
+touch container2-file{1..10}.txt
+
+
+
+
+
+
+
+
+
