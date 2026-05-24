@@ -1,0 +1,33 @@
+FROM python:3.10
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install -r requirements.txt                        # Installs Python dependencies/packages.
+
+
+
+CMD ["python", "app.py"]                             #  Runs Python application when container starts.
+---------------------------------------------
+
+FROM openjdk:17
+
+WORKDIR /app
+
+COPY . /app
+
+CMD ["java", "-jar", "myapp.jar"]
+-------
+Use Java 17 Image
+        │
+        ▼
+Create /app folder
+        │
+        ▼
+Copy Java files
+        │
+        ▼
+Run myapp.jar
+------------------------------------------
+
