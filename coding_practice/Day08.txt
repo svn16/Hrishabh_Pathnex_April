@@ -1,0 +1,27 @@
+## 🔹 Jenkins Pipeline — Parameterized
+You will learn how to **create parameterized builds in Jenkins**.
+
+pipeline {          #  defines a Declarative Jenkins Pipeline.
+    agent any # “Run this pipeline on any available Jenkins agent/node.”
+    parameters {      # Used to take input from user before pipeline starts.
+        string(name: 'ENVIRONMENT',
+        defaultValue: 'dev', 
+        description: 'Deployment Environment')
+    }
+    environment {                        # What is Environment Variable? Environment variable = global variable available during pipeline execution. #    
+        INSTITUTE_NAME = "Pathnex"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Pathnex/sample-java-app.git'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying to $ENVIRONMENT by $INSTITUTE_NAME"'
+            }
+        }
+    }
+}
+==============================================================================

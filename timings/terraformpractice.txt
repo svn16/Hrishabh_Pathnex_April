@@ -1,0 +1,70 @@
+Lesson 08 Demo 05
+Implementing HCL Functions
+Steps to be followed:
+1.
+Prepare files and set up Terraform
+2.
+Write the HCL configuration using functions
+3.
+Validate and apply the Terraform configuration
+Step 1: Prepare files and set up Terraform
+1.1
+Create a folder named Terraform on the desktop
+Objective: To demonstrate the use of HCL functions such as string manipulation, collections, and encoding
+Prerequisites: Terraform installed
+Tools required: Terraform and VS code
+1.2
+Double-click on the VS Code editor icon present on the desktop to open it
+1.3
+Open the File option present on the top console
+1.4
+Click on the Open Folder from the drop-down menu to open the Terraform folder
+The Terraform folder will be opened in the VS Code editor.
+1.5
+Navigate to the Terraform folder on the editor and click on the New File option to create the main file
+1.6
+Create a file named main.tf
+Step 2: Write the HCL configuration using functions
+2.1
+In the main.tf file, copy the following code to manipulate strings:
+variable "greeting" {
+default = "Hello"
+}
+variable "name" {
+default = "World"
+}
+output "message" {
+value = "${var.greeting}, ${upper(var.name)}!"
+}
+variable "list_example" {
+default = ["one", "two", "three"]
+}
+variable "map_example" {
+default = {
+key1 = "value1"
+key2 = "value2"
+}
+}
+output "first_element" {
+value = "${element(var.list_example, 0)}"
+}
+output "map_value" {
+value = "${lookup(var.map_example, "key1")}"
+}
+variable "text" {
+default = "Terraform"
+}
+output "base64_encoded" {
+value = "${base64encode(var.text)}"
+}
+2.2
+Open the terminal in VS Code and run the following command to initialize terraform:
+terraform init
+Step 3: Validate and apply the Terraform configuration
+3.1
+Run the following command to validate the configuration:
+terraform validate
+3.2
+Execute the following command to apply the configuration:
+terraform apply -auto-approve
+By following these steps, you have successfully demonstrated various HCL functions, including string manipulation, collections, and encoding using Terraform.

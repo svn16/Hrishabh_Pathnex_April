@@ -1,0 +1,14 @@
+provider "aws"
+{
+access_key = "<YOUR_AWS_ACCESS_KEY>"
+secret_key = "<YOUR_AWS_SECRET_KEY>"
+region = "us-east-1"
+}
+resource "aws_s3_bucket" "example"
+{
+bucket = "my-unique-bucket-${random_id.bucket_id.hex}"
+}
+resource "random_id" "bucket_id"
+{
+byte_length = 8
+}

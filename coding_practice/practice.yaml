@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myhttpd-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myhttpd
+  template:
+    metadata:
+      labels:
+        app: myhttpd
+    spec:
+      containers:
+        - name: httpd
+          image: docker.io/httpd
+          ports:
+            - containerPort: 80

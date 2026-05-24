@@ -1,0 +1,31 @@
+# Download Ubuntu image from Docker Hub
+docker pull ubuntu
+
+# Show all downloaded Docker images
+docker images
+
+# Show all containers (running + stopped)
+docker ps -a
+=============================
+FROM ubuntu:22.04
+
+RUN apt update
+
+CMD ["echo", "Hello Pathnex"]
+
+---------------------------------------
+FROM ubuntu:22.04
+
+Uses the Ubuntu 22.04 base image.
+
+RUN apt update
+
+Runs command during image build time.
+
+CMD ["echo", "Hello Pathnex"]
+
+Default command executed when container starts.
+-------------------
+CMD tells Docker:
+
+“When this container starts, run this command automatically.”

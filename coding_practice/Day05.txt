@@ -1,0 +1,92 @@
+## 🔹 Jenkins Pipeline — Use Environment Variables
+You will learn how to **use environment variables in Jenkins pipelines**.
+
+Environment variables (env variables) =
+are key–value pairs used to store configuration values that your application or system can access while running.
+===============================================
+
+pipeline {
+    agent any
+    environment {
+        INSTITUTE_NAME = "Pathnex"
+    }
+    stages {
+        stage('Print') {
+            steps {
+                sh 'echo "Welcome to $INSTITUTE_NAME DevOps Training"'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package -Dinstitute.name=$INSTITUTE_NAME'
+            }
+        }
+    }
+}
+
+# 👉 sh means “shell command”.
+
+👉 $ = “give me the value of this variable”
+==========================================================================
+
+## 🔹 Kubernetes — Resource Limits
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pathnex-limited-pod
+spec:
+  containers:
+    - name: app
+      image: nginx
+      resources:
+        limits:
+          memory: "256Mi"
+          cpu: "500m"
+
+# Metadata is used to uniquely identify, label, and organize Kubernetes resources.
+
+# spec = the actual configuration of what Kubernetes should create and run.
+
+==============================================================================
+
+
+---
+- name: Manage Nginx
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update config file
+      copy:
+        src: index.html
+        dest: /usr/share/nginx/html/index.html
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+# Handlers are special tasks that run only when something changes.
+
+==============================================================================
+
+
+## 🔹 Terraform — EC2 with User Data (c6a.12xlarge)
+
+resource "aws_instance" "PathnexEC2" {
+  ami           = "ami-0abcd1234abcd1234"
+  instance_type = "c6a.12xlarge"
+
+  user_data = <<EOF
+#!/bin/bash
+yum install -y httpd
+systemctl start httpd
+EOF
+
+  tags = {
+    Name = "Pathnex-EC2"
+  }
+}

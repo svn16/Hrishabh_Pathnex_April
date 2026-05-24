@@ -1,0 +1,18 @@
+resource "aws_instance" "web_server_2" {
+ami = data.aws_ami.ubuntu.id
+instance_type = "t2.micro"
+subnet_id = aws_subnet.public_subnets["public_subnet_2"].id
+tags = {
+Name = "Web EC2 Server"
+}
+}
+=============================================
+
+| Line                                                          | Meaning                              |
+| ------------------------------------------------------------- | ------------------------------------ |
+| `resource "aws_instance"`                                     | Creates an EC2 instance in AWS       |
+| `"web_server_2"`                                              | Terraform resource name              |
+| `ami = data.aws_ami.ubuntu.id`                                | Uses Ubuntu AMI from data source     |
+| `instance_type = "t2.micro"`                                  | EC2 instance type                    |
+| `subnet_id = aws_subnet.public_subnets["public_subnet_2"].id` | Launches instance in specific subnet |
+| `tags`                                                        | Adds name tag in AWS console         |

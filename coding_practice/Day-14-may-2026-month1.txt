@@ -1,0 +1,65 @@
+## 🔹 Kubernetes — Sidecar Container
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pathnex-sidecar
+spec:
+  containers:
+    - name: main
+      image: nginx
+
+    - name: sidecar
+      image: busybox
+      command: ["sh", "-c", "echo Sidecar running; sleep 3600"]
+==============
+
+
+What is a Sidecar Container?
+
+A sidecar container is:
+
+a helper container
+running alongside main application container
+
+inside the same Pod.What is a Sidecar Container?
+
+A sidecar container is:
+
+a helper container
+running alongside main application container
+
+inside the same Pod.
+----------------
+Main Container → runs application
+Sidecar Container → supports main container
+
+| Use Case   | Example               |
+| ---------- | --------------------- |
+| Logging    | Collect logs          |
+| Monitoring | Metrics exporter      |
+| Proxy      | Envoy/Istio           |
+| File Sync  | Shared file updates   |
+
+
+| Security   | Authentication helper |
+
+--------------------------------
+What is an Image?
+In Docker and Kubernetes, an image is a packaged blueprint used to create containers.
+It contains:
+
+
+application code
+
+
+libraries
+
+
+dependencies
+
+
+runtime
+
+
+configuration
